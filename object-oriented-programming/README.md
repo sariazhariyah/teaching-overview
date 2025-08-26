@@ -63,15 +63,6 @@ By the end of the course, students are expected to:
 
 ---
 
-## Assessment System
-
-- Class participation, practice assignments, quizzes, structured tasks: **40%**  
-- Midterm Exam: **30%**  
-- Final Exam: **30%**  
-- Project component: **40% (integrated)**  
-
----
-
 ## Notes & Policies
 - Late attendance tolerance: 10 minutes (beyond that = attendance marked as "TH").  
 - No tolerance/negotiation for late assignment submission on LMS.  
