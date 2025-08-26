@@ -1,4 +1,4 @@
-# Course Overview: Object-Oriented Programming (OOP)
+# Object-Oriented Programming (OOP)
 
 **Study Program**: Information Systems  
 **Credits**: 3 (1 Theory + 2 Practice)  
