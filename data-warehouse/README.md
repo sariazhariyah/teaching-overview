@@ -39,7 +39,7 @@ By the end of the course, students are expected to:
 
 ## Learning Schedule
 
-### Pre-Midterm (Sessions 1–8)
+### Pre-Midterm (Sessions 1–9)
 
 1. Introduction to Data Warehouse Concepts
 2. Components and Building Blocks of a Data Warehouse
@@ -48,10 +48,10 @@ By the end of the course, students are expected to:
 5. Extract, Transform, and Load (ETL) Concepts
 6. ETL Implementation and Case Study
 7. Metadata: Concepts and Management + Quiz
-8. Midterm Exam
+8. Information Delivery Framework in Data Warehousing
+9. Midterm Exam
 
-### Post-Midterm (Sessions 9–16)
-9. Information Delivery Framework in Data Warehousing
+### Post-Midterm (Sessions 10–18) 
 10. Logical Design of a Data Warehouse
 11. Physical Design of a Data Warehouse
 12. Data Warehouse and Business Intelligence Integration
