@@ -38,7 +38,7 @@ By the end of the course, students are expected to:
 
 ## Learning Schedule
 
-### Pre-Midterm (Sessions 1–8)
+### Pre-Midterm (Sessions 1–9)
 
 1. Introduction to Algorithms and Programming Concepts
 2. Algorithm Representation: Description and Flowcharts
@@ -47,11 +47,11 @@ By the end of the course, students are expected to:
 5. Operators and Input/Output Statements
 6. Sequential Structures in Algorithms
 7. Decision-Making Structures (Selection) + Quiz
-8. Midterm Exam
+8. Repetition Structures (Loops – While, For, Do-While)
+9. Midterm Exam
 
-### Post-Midterm (Sessions 9–16)
+### Post-Midterm (Sessions 10–18)
 
-9. Repetition Structures (Loops – While, For, Do-While)
 10. Nested Loops and Applications
 11. Combining Selection and Loop Structures
 12. Problem-Solving with Algorithms (Case Studies)
