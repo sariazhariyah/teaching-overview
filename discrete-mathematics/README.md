@@ -19,7 +19,7 @@ By 2030, to become one of the best Information Systems programs in Indonesia, su
 ### Mission
 - To provide high-quality learning processes with continuous improvements relevant to stakeholder needs in information systems.  
 - To develop applied research in information systems.  
-- To implement community service in information systems to improve resources and community welfare.  
+- To implement community service in information systems to improve resources and community welfare. 
 - To foster collaborations with industry, associations, and institutions to produce professional, entrepreneurial, and ethical graduates.  
 
 ---
