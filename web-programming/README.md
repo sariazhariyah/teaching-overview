@@ -49,7 +49,8 @@ By the end of the course, students are expected to:
 6. Web MVC: Implementation of Controller and Model
 7. Web MVC: Reading and Displaying Data (CRUD Read) + Quiz
 8. Web MVC: Create, Update, and Delete Data
-9. Session 9: Midterm Exam
+
+**Session 9: Midterm Exam**
 
 ### Post-Midterm (Sessions 10–16)
 10. Authentication: Login, Logout, and Register
@@ -59,8 +60,9 @@ By the end of the course, students are expected to:
 14. Project 2: Code Testing and Presentation (Part 2)
 15. Project 2: Code Testing and Presentation (Part 3)
 16. Project 2: Code Testing and Presentation (Part 4) + Quiz
-17. Final Project Presentation (Practical Exam)
-18. Final Exam
+
+**Session 17: Final Project Presentation (Practical Exam)**
+**Session 18: Final Exam**
 
 ## Notes & Policies
 
