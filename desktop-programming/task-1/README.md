@@ -1,6 +1,6 @@
 # Task 1 - Restaurant Management (Basic OOP)
 
-This task is part of **Desktop Programming (STSI4201)** course at Universitas Terbuka.
+This task is part of **Desktop Programming** course.
 
 ## 🎯 Learning Objectives
 - Implement **classes and objects** in Java
@@ -19,7 +19,7 @@ Create a **restaurant order management program** that:
 
 ## ⚙️ How to Run
 Open VS Code or any IDE, then run:
-```bash
+# Compile & run (single file, tanpa package)
 javac DesktopTask1_Skeleton.java
 java DesktopTask1_Skeleton
 
