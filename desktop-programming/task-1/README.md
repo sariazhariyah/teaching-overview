@@ -19,7 +19,6 @@ Create a **restaurant order management program** that:
 
 ## ⚙️ How to Run
 Open VS Code or any IDE, then run:
-# Compile & run (single file, tanpa package)
 javac DesktopTask1_Skeleton.java
 java DesktopTask1_Skeleton
 
