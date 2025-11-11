@@ -50,7 +50,7 @@ public class Main {
 
     // ====== Menu Utama ======
     static void tampilMenuUtama() {
-        System.out.println("\n=== RESTO CLI ===");
+        System.out.println("\n=== RESTO CLI ===zxzxzx");
         System.out.println("1) Pelanggan (Pemesanan)");
         System.out.println("2) Admin (Pengelolaan Menu)");
         System.out.println("3) Keluar");
@@ -252,9 +252,10 @@ public class Main {
     }
 
     static void adminUbahHarga() {
-        int[] map = tampilDaftarMenuBernomor(); // bernomor tunggal untuk pilih
+        int[] map = tampilDaftarMenuBernomor();
+        System.out.println(map[0]); // bernomor tunggal untuk pilih
         if (map[0] == -1) {
-            System.out.println("Tidak ada menu.");
+            System.out.println("Tidak ada menu");
             return;
         }
         int no = inputInt("Masukkan nomor menu yang diubah harganya: ");
@@ -308,7 +309,9 @@ public class Main {
         }
         if (nomor == 1) {
             System.out.println("(kosong)");
-            map[0] = -1;
+            map[0] = -1; // tanda kosong
+        } else {
+            map[0] = nomor - 1; // simpan jumlah item yang ditampilkan di map[0]
         }
         return map;
     }
