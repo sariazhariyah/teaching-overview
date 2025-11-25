@@ -1,0 +1,15 @@
+MAKANAN;Nasi Goreng;25000;Makanan;Nasi
+MAKANAN;Ayam Geprek;28000;Makanan;Ayam
+MAKANAN;Sate Ayam;30000;Makanan;Daging
+MAKANAN;Rendang;35000;Makanan;Daging
+MAKANAN;Mie Goreng Spesial;27000;Makanan;Mie
+
+MINUMAN;Es Teh;8000;Minuman;Dingin
+MINUMAN;Kopi Hitam;12000;Minuman;Panas
+MINUMAN;Jus Alpukat;18000;Minuman;Jus
+MINUMAN;Air Mineral;5000;Minuman;Dingin
+MINUMAN;Teh Tarik;10000;Minuman;Panas
+
+DISKON;Promo Akhir Pekan;0;ALL;10
+DISKON;Diskon Makanan Spesial;0;Makanan;5
+DISKON;Diskon Minuman Segar;0;Minuman;7
