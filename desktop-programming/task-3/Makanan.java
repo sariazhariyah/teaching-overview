@@ -1,18 +1,26 @@
-/** Subkelas MenuItem: Makanan */
+// Subkelas Makanan (Inheritance dari MenuItem)
 public class Makanan extends MenuItem {
-    private String jenisMakanan; // contoh: "Nasi", "Gorengan", dll.
+    private String jenisMakanan;
 
-    public Makanan(String nama, double harga, String kategori, String jenisMakanan) {
-        super(nama, harga, kategori);
+    public Makanan(String nama, double harga, String jenisMakanan) {
+        super(nama, harga, "Makanan");
         this.jenisMakanan = jenisMakanan;
     }
 
-    public String getJenisMakanan() { return jenisMakanan; }
-    public void setJenisMakanan(String jenisMakanan) { this.jenisMakanan = jenisMakanan; }
+    // Getter & Setter tambahan (Encapsulation)
+    public String getJenisMakanan() {
+        return jenisMakanan;
+    }
 
+    public void setJenisMakanan(String jenisMakanan) {
+        this.jenisMakanan = jenisMakanan;
+    }
+
+    // Polymorphism: override tampilMenu()
     @Override
-    public String tampilMenu() {
-        return String.format("[Makanan] %s - %s (Jenis: %s)",
-                getNama(), rupiah(getHarga()), jenisMakanan);
+    public void tampilMenu() {
+        System.out.println("[Makanan] " + getNama()
+                + " | Jenis: " + jenisMakanan
+                + " | Harga: " + formatRupiah(getHarga()));
     }
 }
