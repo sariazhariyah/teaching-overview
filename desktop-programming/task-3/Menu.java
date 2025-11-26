@@ -1,124 +1,116 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
-import java.nio.file.*;
 
-/** Manajer daftar menu (ArrayList<MenuItem>) + operasi I/O file */
+// Kelas Menu menyimpan semua item menu
 public class Menu {
-    private final List<MenuItem> items = new ArrayList<>();
+    private List<MenuItem> daftarMenu = new ArrayList<>();
 
-    public void tambah(MenuItem item) {
-        items.add(item);
+    public Menu() {
     }
 
-    public List<MenuItem> semua() {
-        return Collections.unmodifiableList(items);
+    // Getter & Setter (Encapsulation)
+    public List<MenuItem> getDaftarMenu() {
+        return daftarMenu;
     }
 
-    public List<Diskon> semuaDiskon() {
-        List<Diskon> d = new ArrayList<>();
-        for (MenuItem mi : items) if (mi instanceof Diskon) d.add((Diskon) mi);
-        return d;
+    public void setDaftarMenu(List<MenuItem> daftarMenuBaru) {
+        this.daftarMenu = daftarMenuBaru;
     }
 
-    public MenuItem cariByNama(String nama) throws ItemNotFoundException {
-        for (MenuItem mi : items) {
-            if (mi.getNama().equalsIgnoreCase(nama)) return mi;
-        }
-        throw new ItemNotFoundException("Item \"" + nama + "\" tidak ditemukan di menu.");
+    public void tambahMenu(MenuItem item) {
+        daftarMenu.add(item);
     }
 
-    /** Tampilkan tabel ringkas */
-    public void tampilkan() {
-        TextTable tt = new TextTable(new String[]{"Jenis", "Nama", "Kategori", "Harga/Info"});
-        for (MenuItem mi : items) {
-            String jenis;
-            String info;
-            if (mi instanceof Makanan) {
-                jenis = "Makanan";
-                info = ((Makanan) mi).getJenisMakanan() + " | " + rupiah(mi.getHarga());
-            } else if (mi instanceof Minuman) {
-                jenis = "Minuman";
-                info = ((Minuman) mi).getJenisMinuman() + " | " + rupiah(mi.getHarga());
-            } else if (mi instanceof Diskon) {
-                jenis = "Diskon";
-                Diskon d = (Diskon) mi;
-                info = d.getPersenDiskon() + "% untuk " + d.getTargetKategori();
-            } else {
-                jenis = "Item";
-                info = rupiah(mi.getHarga());
+    public int getJumlahMenu() {
+        return daftarMenu.size();
+    }
+
+    public void tampilMenu() {
+        System.out.println("=== DAFTAR MENU RESTORAN ===");
+        if (daftarMenu.isEmpty()) {
+            System.out.println("(Belum ada menu)");
+        } else {
+            int no = 1;
+            for (MenuItem item : daftarMenu) {
+                System.out.print(no + ". ");
+                item.tampilMenu(); // Polymorphism
+                no++;
             }
-            tt.addRow(new String[]{jenis, mi.getNama(), mi.getKategori(), info});
         }
-        tt.print();
+        System.out.println("============================");
     }
 
-    private String rupiah(double v) {
-        return java.text.NumberFormat.getCurrencyInstance(new java.util.Locale("id","ID")).format(v);
+    // Mengambil item berdasarkan index dengan Exception khusus
+    public MenuItem getMenuItem(int index) throws ItemNotFoundException {
+        if (index < 0 || index >= daftarMenu.size()) {
+            throw new ItemNotFoundException("Item dengan nomor " + (index + 1) + " tidak ditemukan.");
+        }
+        return daftarMenu.get(index);
     }
 
-    /** Simpan ke menu.txt (CSV pakai titik-koma) */
-    public void simpanKeFile(String path) throws IOException {
-        try (PrintWriter pw = new PrintWriter(Files.newBufferedWriter(Paths.get(path)))) {
-            for (MenuItem mi : items) {
-                if (mi instanceof Makanan) {
-                    Makanan m = (Makanan) mi;
-                    pw.printf("MAKANAN;%s;%s;%s;%s%n",
-                            m.getNama(), m.getHarga(), m.getKategori(), m.getJenisMakanan());
-                } else if (mi instanceof Minuman) {
-                    Minuman m = (Minuman) mi;
-                    pw.printf("MINUMAN;%s;%s;%s;%s%n",
-                            m.getNama(), m.getHarga(), m.getKategori(), m.getJenisMinuman());
-                } else if (mi instanceof Diskon) {
-                    Diskon d = (Diskon) mi;
-                    // Harga 0 sengaja (bukan item berbayar)
-                    pw.printf("DISKON;%s;0;%s;%s%n",
-                            d.getNama(), d.getTargetKategori(), d.getPersenDiskon());
+    // Simpan daftar menu ke file teks
+    // Format tiap baris:
+    // Makanan,nama,harga,jenisMakanan
+    // Minuman,nama,harga,jenisMinuman
+    // Diskon,nama,persentaseDiskon
+    public void simpanMenuKeFile(String filename) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            for (MenuItem item : daftarMenu) {
+                if (item instanceof Makanan) {
+                    Makanan m = (Makanan) item;
+                    bw.write("Makanan," + m.getNama() + "," + m.getHarga() + "," + m.getJenisMakanan());
+                } else if (item instanceof Minuman) {
+                    Minuman m = (Minuman) item;
+                    bw.write("Minuman," + m.getNama() + "," + m.getHarga() + "," + m.getJenisMinuman());
+                } else if (item instanceof Diskon) {
+                    Diskon d = (Diskon) item;
+                    bw.write("Diskon," + d.getNama() + "," + d.getPersentaseDiskon());
                 }
+                bw.newLine();
             }
         }
     }
 
-    /** Muat dari menu.txt; baris invalid akan dilewati (robust terhadap error) */
-    public void muatDariFile(String path) throws IOException {
-        items.clear();
-        Path p = Paths.get(path);
-        if (!Files.exists(p)) return; // jika belum ada, biarkan kosong
-        try (BufferedReader br = Files.newBufferedReader(p)) {
+    // Memuat menu dari file teks (sesuai format di atas)
+    public void muatMenuDariFile(String filename) throws IOException {
+        daftarMenu.clear();
+        File file = new File(filename);
+        if (!file.exists()) {
+            // Jika file belum ada, tidak dianggap error fatal
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.isBlank()) continue;
-                String[] parts = line.split(";");
-                try {
-                    String type = parts[0].trim().toUpperCase();
-                    switch (type) {
-                        case "MAKANAN": {
-                            String nama = parts[1];
-                            double harga = Double.parseDouble(parts[2]);
-                            String kat = parts[3];
-                            String jenis = parts[4];
-                            tambah(new Makanan(nama, harga, kat, jenis));
-                            break;
-                        }
-                        case "MINUMAN": {
-                            String nama = parts[1];
-                            double harga = Double.parseDouble(parts[2]);
-                            String kat = parts[3];
-                            String jenis = parts[4];
-                            tambah(new Minuman(nama, harga, kat, jenis));
-                            break;
-                        }
-                        case "DISKON": {
-                            String nama = parts[1];
-                            String targetKat = parts[3];
-                            double persen = Double.parseDouble(parts[4]);
-                            tambah(new Diskon(nama, targetKat, persen));
-                            break;
-                        }
-                        default:
-                            // abaikan baris tidak dikenal
-                    }
-                } catch (Exception e) {
-                    // lewati baris yang tidak valid agar program tidak crash
+                if (line.trim().isEmpty()) continue;
+                String[] data = line.split(",");
+                String tipe = data[0];
+                switch (tipe) {
+                    case "Makanan":
+                        // Makanan,nama,harga,jenisMakanan
+                        tambahMenu(new Makanan(
+                                data[1],
+                                Double.parseDouble(data[2]),
+                                data[3]
+                        ));
+                        break;
+                    case "Minuman":
+                        // Minuman,nama,harga,jenisMinuman
+                        tambahMenu(new Minuman(
+                                data[1],
+                                Double.parseDouble(data[2]),
+                                data[3]
+                        ));
+                        break;
+                    case "Diskon":
+                        // Diskon,nama,persentaseDiskon
+                        tambahMenu(new Diskon(
+                                data[1],
+                                Double.parseDouble(data[2])
+                        ));
+                        break;
                 }
             }
         }
