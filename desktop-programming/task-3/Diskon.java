@@ -1,26 +1,26 @@
-/** Subkelas MenuItem: Diskon
- *  Diskon persentase (0–100). Target kategori: "ALL", "Makanan", atau "Minuman".
- *  Harga diset 0 karena ini bukan item berharga, melainkan aturan diskon.
- */
+// Subkelas Diskon (Inheritance dari MenuItem)
 public class Diskon extends MenuItem {
-    private double persenDiskon;   // contoh: 10 artinya 10%
-    private String targetKategori; // "ALL", "Makanan", "Minuman"
+    private double persentaseDiskon; // contoh: 10 berarti 10%
 
-    public Diskon(String nama, String targetKategori, double persenDiskon) {
-        super(nama, 0.0, targetKategori);
-        this.persenDiskon = persenDiskon;
-        this.targetKategori = targetKategori;
+    public Diskon(String nama, double persentaseDiskon) {
+        // Harga 0 karena ini hanya informasi diskon
+        super(nama, 0, "Diskon");
+        this.persentaseDiskon = persentaseDiskon;
     }
 
-    public double getPersenDiskon() { return persenDiskon; }
-    public void setPersenDiskon(double p) { this.persenDiskon = p; }
+    // Getter & Setter tambahan (Encapsulation)
+    public double getPersentaseDiskon() {
+        return persentaseDiskon;
+    }
 
-    public String getTargetKategori() { return targetKategori; }
-    public void setTargetKategori(String targetKategori) { this.targetKategori = targetKategori; }
+    public void setPersentaseDiskon(double persentaseDiskon) {
+        this.persentaseDiskon = persentaseDiskon;
+    }
 
+    // Polymorphism: override tampilMenu()
     @Override
-    public String tampilMenu() {
-        return String.format("[Diskon] %s - %s%% untuk %s",
-                getNama(), persenDiskon, targetKategori);
+    public void tampilMenu() {
+        System.out.println("[Diskon] " + getNama()
+                + " | Besar Diskon: " + persentaseDiskon + "%");
     }
 }
