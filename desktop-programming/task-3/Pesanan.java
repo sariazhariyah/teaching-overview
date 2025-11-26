@@ -1,101 +1,110 @@
-import java.text.NumberFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
-import java.nio.file.*;
 
+// Kelas Pesanan menyimpan item-item yang dipesan pelanggan
 public class Pesanan {
-    private final List<OrderLine> lines = new ArrayList<>();
+    private List<MenuItem> daftarPesanan = new ArrayList<>();
+    private double totalHarga;
+    private double diskonPersen;
 
-    public void tambah(MenuItem item, int qty) {
-        // Jika item sama sudah ada, tambahkan qty-nya.
-        for (OrderLine ol : lines) {
-            if (ol.getItem().getNama().equalsIgnoreCase(item.getNama())) {
-                ol.setQty(ol.getQty() + qty);
-                return;
-            }
-        }
-        lines.add(new OrderLine(item, qty));
+    public Pesanan() {
     }
 
-    public List<OrderLine> getLines() { return Collections.unmodifiableList(lines); }
-
-    public double hitungSubtotal() {
-        double sum = 0;
-        for (OrderLine ol : lines) sum += ol.getSubTotal();
-        return sum;
+    // Getter & Setter (Encapsulation)
+    public List<MenuItem> getDaftarPesanan() {
+        return daftarPesanan;
     }
 
-    /** Terapkan diskon berdasarkan target kategori.
-     *  - Diskon "ALL" diterapkan pada total semua item.
-     *  - Diskon kategori spesifik (Makanan/Minuman) hanya pada item kategori itu.
-     *  Jika ada banyak diskon, semuanya diterapkan berurutan (komposisi).
-     */
-    public double hitungTotalDenganDiskon(List<Diskon> diskonList) {
-        double total = 0;
-        double subtotalMakanan = 0;
-        double subtotalMinuman = 0;
-
-        for (OrderLine ol : lines) {
-            String kat = ol.getItem().getKategori();
-            if ("Makanan".equalsIgnoreCase(kat)) subtotalMakanan += ol.getSubTotal();
-            else if ("Minuman".equalsIgnoreCase(kat)) subtotalMinuman += ol.getSubTotal();
-            total += ol.getSubTotal();
-        }
-
-        double totalSetelahDiskon = total;
-        for (Diskon d : diskonList) {
-            double p = d.getPersenDiskon() / 100.0;
-            String target = d.getTargetKategori();
-            if ("ALL".equalsIgnoreCase(target)) {
-                totalSetelahDiskon -= totalSetelahDiskon * p;
-            } else if ("Makanan".equalsIgnoreCase(target)) {
-                totalSetelahDiskon -= subtotalMakanan * p;
-            } else if ("Minuman".equalsIgnoreCase(target)) {
-                totalSetelahDiskon -= subtotalMinuman * p;
-            }
-        }
-        return totalSetelahDiskon;
+    public void setDaftarPesanan(List<MenuItem> daftarPesanan) {
+        this.daftarPesanan = daftarPesanan;
     }
 
-    public String formatRupiah(double v) {
-        return NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(v);
+    public double getTotalHarga() {
+        return totalHarga;
     }
 
-    /** Simpan struk ke file teks di folder struk/ */
-    public Path simpanStrukKeFile(List<Diskon> diskonTerpakai, double totalAkhir) throws IOException {
-        Files.createDirectories(Paths.get("struk"));
-        String ts = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
-        Path out = Paths.get("struk", "STRUK-" + ts + ".txt");
+    public void setTotalHarga(double totalHarga) {
+        this.totalHarga = totalHarga;
+    }
 
-        try (PrintWriter pw = new PrintWriter(Files.newBufferedWriter(out))) {
-            pw.println("===== STRUK PESANAN =====");
-            pw.println("Waktu : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-            pw.println();
-            pw.println(String.format("%-25s %5s %12s %12s", "Item", "Qty", "Harga", "SubTotal"));
-            pw.println("-------------------------------------------------------------");
-            for (OrderLine ol : lines) {
-                pw.println(String.format("%-25s %5d %12s %12s",
-                        ol.getItem().getNama(),
-                        ol.getQty(),
-                        formatRupiah(ol.getItem().getHarga()),
-                        formatRupiah(ol.getSubTotal())));
-            }
-            pw.println("-------------------------------------------------------------");
-            pw.println("Subtotal        : " + formatRupiah(hitungSubtotal()));
-            if (!diskonTerpakai.isEmpty()) {
-                pw.println("Diskon diterapkan:");
-                for (Diskon d : diskonTerpakai) {
-                    pw.println(String.format(" - %s (%s%% untuk %s)",
-                            d.getNama(), d.getPersenDiskon(), d.getTargetKategori()));
-                }
+    public double getDiskonPersen() {
+        return diskonPersen;
+    }
+
+    public void setDiskonPersen(double diskonPersen) {
+        this.diskonPersen = diskonPersen;
+    }
+
+    public void tambahPesanan(MenuItem item) {
+        daftarPesanan.add(item);
+    }
+
+    // Menghitung total, memperhitungkan Diskon (jika ada)
+    public void hitungTotal() {
+        totalHarga = 0;
+        diskonPersen = 0;
+
+        for (MenuItem item : daftarPesanan) {
+            if (item instanceof Diskon) {
+                diskonPersen = ((Diskon) item).getPersentaseDiskon();
             } else {
-                pw.println("Diskon diterapkan: -");
+                totalHarga += item.getHarga();
             }
-            pw.println("TOTAL AKHIR     : " + formatRupiah(totalAkhir));
-            pw.println("=========================");
         }
-        return out;
+
+        if (diskonPersen > 0) {
+            totalHarga = totalHarga - (totalHarga * diskonPersen / 100.0);
+        }
+    }
+
+    public void tampilStruk() {
+        System.out.println("======= STRUK PESANAN (OBJEK) =======");
+        if (daftarPesanan.isEmpty()) {
+            System.out.println("(Belum ada pesanan)");
+        } else {
+            for (MenuItem item : daftarPesanan) {
+                item.tampilMenu();
+            }
+            System.out.println("-------------------------------------");
+            System.out.println("Diskon: " + diskonPersen + "%");
+            System.out.println("Total Bayar: " + totalHarga);
+        }
+        System.out.println("=====================================");
+    }
+
+    // Menyimpan struk ke file teks sederhana
+    public void simpanStrukKeFile(String filename) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            bw.write("STRUK PESANAN\n");
+            for (MenuItem item : daftarPesanan) {
+                if (item instanceof Diskon) {
+                    Diskon d = (Diskon) item;
+                    bw.write("[Diskon] " + d.getNama() + " - " + d.getPersentaseDiskon() + "%\n");
+                } else {
+                    bw.write(item.getKategori() + " - " + item.getNama() + " - " + item.getHarga() + "\n");
+                }
+            }
+            bw.write("Diskon: " + diskonPersen + "%\n");
+            bw.write("Total: " + totalHarga + "\n");
+        }
+    }
+
+    // Membaca struk dari file teks dan menampilkannya ke layar
+    public void muatStrukDariFile(String filename) throws IOException {
+        File file = new File(filename);
+        if (!file.exists()) {
+            System.out.println("File struk belum ada.");
+            return;
+        }
+
+        System.out.println("======= STRUK PESANAN (DARI FILE) =======");
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        }
+        System.out.println("=========================================");
     }
 }
