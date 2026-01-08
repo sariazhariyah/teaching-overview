@@ -52,5 +52,3 @@ Record a short video explanation for submission, as instructed in each task.
 
 📬 Author / Maintainer:
 Sari Azhariyah
-Universitas Terbuka — Faculty of Computer Science
-© 2025 — Educational use only.
