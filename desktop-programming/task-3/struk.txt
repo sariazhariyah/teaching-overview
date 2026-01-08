@@ -1,9 +1,0 @@
-STRUK PESANAN
-Makanan - Nasi Goreng - 25000.0
-Makanan - Ayam Bakar - 30000.0
-Minuman - Jus Jeruk - 12000.0
-Makanan - Nasi Padang - 40000.0
-[Diskon] Promo 12 12 - 20.0%
-Diskon: 20.0%
-Total: 85600.0
-
