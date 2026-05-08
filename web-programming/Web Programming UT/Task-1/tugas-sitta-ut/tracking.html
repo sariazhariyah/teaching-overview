@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Pengiriman - SITTA UT</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                📚 <span>SITTA</span> UT
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                    <li><a href="stok.html">📦 Stok</a></li>
+                    <li class="active"><a href="tracking.html">📊 Tracking</a></li>
+                    <li><a href="index.html">🚪 Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="tracking-container">
+        <div class="card">
+            <h3>📦 Tracking Pengiriman</h3>
+            <p>Masukkan Nomor Delivery Order untuk melacak status pengiriman bahan ajar.</p>
+            
+            <form id="trackingForm">
+                <div class="form-group" style="max-width: 400px; margin: 2rem auto;">
+                    <label for="nomorDO">Nomor Delivery Order:</label>
+                    <input type="text" id="nomorDO" placeholder="Contoh: 2023001234" required>
+                </div>
+                <button type="submit" class="btn" style="display: block; margin: 0 auto;">🔍 Cari</button>
+            </form>
+        </div>
+
+        <div id="trackingResult" class="tracking-result">
+            <h3>📋 Hasil Tracking</h3>
+            <div style="margin-bottom: 1.5rem;">
+                <p><strong>Nama Penerima:</strong> <span id="trackingNama">-</span></p>
+                <p><strong>Status:</strong> <span id="trackingStatus" class="status-badge">-</span></p>
+                <p><strong>Ekspedisi:</strong> <span id="trackingEkspedisi">-</span></p>
+                <p><strong>Tanggal Kirim:</strong> <span id="trackingTanggal">-</span></p>
+                <p><strong>Paket:</strong> <span id="trackingPaket">-</span></p>
+                <p><strong>Total:</strong> <span id="trackingTotal">-</span></p>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                </div>
+                <p style="text-align: center; margin-top: 0.5rem; font-weight: 600;">Progress Pengiriman</p>
+            </div>
+
+            <div>
+                <h4>📜 Riwayat Perjalanan</h4>
+                <ul id="trackingRiwayat" style="margin-top: 1rem;"></ul>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

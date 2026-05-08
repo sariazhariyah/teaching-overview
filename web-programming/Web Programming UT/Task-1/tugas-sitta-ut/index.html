@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login SITTA - Universitas Terbuka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                📚 <span>SITTA</span> UT
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="login-container">
+            <h1>Masuk ke SITTA</h1>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">
+                Sistem Informasi Transaksi dan Tracking Bahan Ajar
+            </p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                
+                <button type="submit" class="btn">Login</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.5rem; gap: 1rem; display: flex; flex-direction: column;">
+                <button class="btn btn-secondary" data-modal="lupaModal">Lupa Password?</button>
+                <button class="btn btn-secondary" data-modal="daftarModal">Daftar Akun Baru</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Lupa Password -->
+    <div id="lupaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>🔒 Lupa Password</h2>
+            <p>Hubungi administrator sistem SITTA di <strong>admin@ut.ac.id</strong> untuk reset password.</p>
+        </div>
+    </div>
+
+    <!-- Modal Daftar -->
+    <div id="daftarModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>📝 Daftar Akun Baru</h2>
+            <p>Registrasi dilakukan melalui administrator UPBJJ-UT masing-masing wilayah.</p>
+            <p><strong>Hubungi:</strong> Koordinator UPBJJ-UT terdekat</p>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

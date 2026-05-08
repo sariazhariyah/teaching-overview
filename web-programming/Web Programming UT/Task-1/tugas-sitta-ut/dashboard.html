@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard SITTA - Universitas Terbuka</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                📚 <span>SITTA</span> UT
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                    <li><a href="stok.html">📦 Stok Bahan Ajar</a></li>
+                    <li><a href="tracking.html">📊 Tracking</a></li>
+                    <li><a href="index.html">🚪 Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>🌅 <span id="greeting">Selamat Datang</span></h3>
+                <p>Selamat datang di Sistem Informasi Transaksi dan Tracking Bahan Ajar Universitas Terbuka</p>
+                <p><strong>Sistem ini digunakan untuk:</strong></p>
+                <ul style="margin-top: 1rem;">
+                    <li>📦 Monitoring stok bahan ajar</li>
+                    <li>📦 Tracking pengiriman DO</li>
+                    <li>📊 Laporan dan histori transaksi</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>📈 Quick Actions</h3>
+                <div style="display: grid; gap: 1rem; margin-top: 1rem;">
+                    <a href="stok.html" class="btn" style="text-align: center;">Cek Stok Bahan Ajar</a>
+                    <a href="tracking.html" class="btn btn-secondary" style="text-align: center;">Tracking Pengiriman</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📋 Menu Navigasi</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="active"><a href="stok.html" style="color: #3498db;">📦 Informasi Bahan Ajar</a></li>
+                    <li><a href="tracking.html" style="color: #3498db;">📦 Tracking Pengiriman</a></li>
+                    <li><a href="#" style="color: #95a5a6;">📊 Laporan Monitoring</a></li>
+                    <li><a href="#" style="color: #95a5a6;">📋 Rekap Bahan Ajar</a></li>
+                    <li><a href="#" style="color: #95a5a6;">📜 Histori Transaksi</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
