@@ -1,0 +1,185 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    min-height:100vh;
+    color:#333;
+}
+
+header{
+    background:#1e293b;
+    color:white;
+    padding:15px;
+}
+
+.header-content{
+    width:95%;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#facc15;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:15px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+}
+
+main{
+    width:95%;
+    margin:30px auto;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:12px 18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-secondary{
+    background:#f59e0b;
+}
+
+.btn-danger{
+    background:#dc2626;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:left;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+
+.status-aman{
+    color:green;
+    font-weight:bold;
+}
+
+.status-menipis{
+    color:orange;
+    font-weight:bold;
+}
+
+.status-kosong{
+    color:red;
+    font-weight:bold;
+}
+
+.alert{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:10px;
+    border-radius:8px;
+    margin-top:10px;
+}
+
+.badge{
+    padding:5px 10px;
+    border-radius:20px;
+    color:white;
+    font-size:12px;
+}
+
+.badge-warning{
+    background:orange;
+}
+
+.badge-success{
+    background:green;
+}
+
+.badge-danger{
+    background:red;
+}
+
+.timeline{
+    margin-top:20px;
+}
+
+.timeline-item{
+    background:#f8fafc;
+    padding:15px;
+    border-left:5px solid #2563eb;
+    margin-bottom:10px;
+    border-radius:8px;
+}
+
+@media(max-width:768px){
+
+    .header-content{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    table{
+        font-size:12px;
+    }
+
+}

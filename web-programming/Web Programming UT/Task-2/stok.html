@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stok Bahan Ajar</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <div id="app" style="display:none;"></div>
+    <script src="js/dataBahanAjar.js"></script>
+</head>
+
+<body>
+
+<div id="stokApp">
+
+<header>
+
+    <div class="header-content">
+
+        <div class="logo">
+            <span>SITTA</span> UT
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="tracking.html">🚚 Tracking</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</header>
+
+<main>
+
+<div class="card">
+
+<h2>Manajemen Stok Bahan Ajar</h2>
+
+<br>
+
+<div class="form-grid">
+
+<select v-model="filterUpbjj">
+
+<option value="">Semua UPBJJ</option>
+
+<option
+v-for="u in upbjjList"
+:key="u">
+{{u}}
+</option>
+
+</select>
+
+<select
+v-model="filterKategori"
+v-show="filterUpbjj != ''">
+
+<option value="">Semua Kategori</option>
+
+<option
+v-for="k in kategoriList"
+:key="k">
+
+{{k}}
+
+</option>
+
+</select>
+
+<select v-model="sortBy">
+
+<option value="">Sort Default</option>
+<option value="judul">Judul</option>
+<option value="qty">Stok</option>
+<option value="harga">Harga</option>
+
+</select>
+
+<label>
+<input
+type="checkbox"
+v-model="warningOnly">
+
+Hanya Warning
+</label>
+
+<button
+class="btn btn-danger"
+@click="resetFilter">
+
+Reset
+
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>➕ Tambah Data</h3>
+
+<div class="form-grid">
+
+<input v-model="form.kode" placeholder="Kode MK">
+
+<input v-model="form.judul" placeholder="Judul MK">
+
+<select v-model="form.kategori">
+
+<option value="">Pilih Kategori</option>
+
+<option
+v-for="k in kategoriList">
+
+{{k}}
+
+</option>
+
+</select>
+
+<select v-model="form.upbjj">
+
+<option value="">Pilih UPBJJ</option>
+
+<option
+v-for="u in upbjjList">
+
+{{u}}
+
+</option>
+
+</select>
+
+<input
+v-model="form.lokasiRak"
+placeholder="Lokasi Rak">
+
+<input
+type="number"
+v-model.number="form.harga"
+placeholder="Harga">
+
+<input
+type="number"
+v-model.number="form.qty"
+placeholder="Qty">
+
+<input
+type="number"
+v-model.number="form.safety"
+placeholder="Safety">
+
+</div>
+
+<br>
+
+<textarea
+v-model="form.catatanHTML"
+placeholder="Catatan">
+</textarea>
+
+<div
+class="alert"
+v-if="errorMessage">
+
+{{errorMessage}}
+
+</div>
+
+<br>
+
+<button
+class="btn"
+@click="tambahData">
+
+Tambah Data
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Total Data: {{filteredStok.length}}</h3>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Kode</th>
+<th>Judul</th>
+<th>Kategori</th>
+<th>UPBJJ</th>
+<th>Lokasi</th>
+<th>Harga</th>
+<th>Qty</th>
+<th>Safety</th>
+<th>Status</th>
+<th>Catatan</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr
+v-for="(s,index) in filteredStok"
+:key="index">
+
+<td v-text="s.kode"></td>
+
+<td>{{s.judul}}</td>
+
+<td>{{s.kategori}}</td>
+
+<td>{{s.upbjj}}</td>
+
+<td>{{s.lokasiRak}}</td>
+
+<td>{{formatRupiah(s.harga)}}</td>
+
+<td>
+<input
+type="number"
+v-model.number="s.qty">
+</td>
+
+<td>{{s.safety}}</td>
+
+<td>
+
+<span
+v-if="s.qty == 0"
+class="status-kosong">
+
+❌ Kosong
+
+</span>
+
+<span
+v-else-if="s.qty < s.safety"
+class="status-menipis">
+
+⚠ Menipis
+
+</span>
+
+<span
+v-else
+class="status-aman">
+
+✅ Aman
+
+</span>
+
+</td>
+
+<td v-html="s.catatanHTML"></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</main>
+
+</div>
+
+<script src="js/stok-app.js"></script>
+
+</body>
+</html>

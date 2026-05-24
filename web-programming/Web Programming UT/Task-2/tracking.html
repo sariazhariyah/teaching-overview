@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+<meta charset="UTF-8">
+
+<title>Tracking DO</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<div id="app" style="display:none;"></div>
+<script src="js/dataBahanAjar.js"></script>
+
+</head>
+
+<body>
+
+<div id="trackingApp">
+
+<header>
+
+<div class="header-content">
+
+<div class="logo">
+📚 <span>SITTA</span> UT
+</div>
+
+<nav>
+
+<ul>
+
+<li><a href="index.html">🏠 Home</a></li>
+<li><a href="stok.html">📦 Stok</a></li>
+
+</ul>
+
+</nav>
+
+</div>
+
+</header>
+
+<main>
+
+<div class="card">
+
+<h2>🚚 Tracking Delivery Order</h2>
+
+<br>
+
+<div class="form-grid">
+
+<input
+:value="nomorDOBaru"
+readonly>
+
+<input
+v-model="form.nim"
+placeholder="NIM">
+
+<input
+v-model="form.nama"
+placeholder="Nama">
+
+<select v-model="form.ekspedisi">
+
+<option value="">
+Pilih Ekspedisi
+</option>
+
+<option
+v-for="e in pengirimanList"
+:value="e.nama">
+
+{{e.nama}}
+
+</option>
+
+</select>
+
+<select v-model="selectedPaket">
+
+<option value="">
+Pilih Paket
+</option>
+
+<option
+v-for="p in paket"
+:value="p">
+
+{{p.kode}} - {{p.nama}}
+
+</option>
+
+</select>
+
+<input
+type="date"
+v-model="form.tanggalKirim">
+
+</div>
+
+<div
+class="card"
+v-if="selectedPaket">
+
+<h3>📘 Detail Paket</h3>
+
+<ul>
+
+<li
+v-for="isi in selectedPaket.isi">
+
+{{isi}}
+
+</li>
+
+</ul>
+
+<br>
+
+<h3>
+{{formatRupiah(selectedPaket.harga)}}
+</h3>
+
+</div>
+
+<br>
+
+<button
+class="btn"
+@click="tambahDO">
+
+Simpan DO
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>📋 Data Tracking</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>No DO</th>
+<th>Nama</th>
+<th>Status</th>
+<th>Ekspedisi</th>
+<th>Total</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr
+v-for="(item,key) in tracking"
+:key="key">
+
+<td>{{key}}</td>
+
+<td>{{item.nama}}</td>
+
+<td>
+
+<span
+v-if="item.status == 'Diproses'"
+class="badge badge-warning">
+
+Diproses
+
+</span>
+
+<span
+v-else
+class="badge badge-success">
+
+{{item.status}}
+
+</span>
+
+</td>
+
+<td>{{item.ekspedisi}}</td>
+
+<td>{{formatRupiah(item.total)}}</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</main>
+
+</div>
+
+<script src="js/tracking-app.js"></script>
+
+</body>
+</html>
